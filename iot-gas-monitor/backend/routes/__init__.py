@@ -16,3 +16,6 @@ def register_routes(app):
     from routes.sensor import sensor_bp
     app.register_blueprint(sensor_bp, url_prefix="/api")
 
+    from routes.command import command_bp
+    app.register_blueprint(command_bp, url_prefix="/api")
+

@@ -4,6 +4,10 @@ import paho.mqtt.client as mqtt
 BROKER_HOST = "broker.emqx.io"
 BROKER_PORT = 1883
 TOPIC = "gas/telemetry"
+TOPIC_COMMAND = "gas/command"
+
+# Exposed so routes can publish commands
+mqtt_client = None
 
 
 def on_connect(client, userdata, flags, reason_code, properties):
@@ -60,7 +64,9 @@ def start_mqtt(flask_app):
     Create and start the MQTT client in a background daemon thread.
     flask_app is stored as userdata so on_message can open an app context.
     """
+    global mqtt_client
     client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, userdata=flask_app)
+    mqtt_client = client
 
     client.on_connect = on_connect
     client.on_disconnect = on_disconnect
