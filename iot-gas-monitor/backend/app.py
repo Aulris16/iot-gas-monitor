@@ -20,8 +20,15 @@ def create_app():
     from routes import register_routes
     register_routes(app)
 
+    # Import models so db.create_all() can find them
+    import models  # noqa: F401
+
     # Create database tables (only if they don't exist yet)
     with app.app_context():
         db.create_all()
+
+    # Start MQTT client in background thread (pass app for app context)
+    from mqtt import start_mqtt
+    start_mqtt(app)
 
     return app

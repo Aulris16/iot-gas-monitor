@@ -12,6 +12,7 @@ def health_check():
 def register_routes(app):
     """Register all blueprints here."""
     app.register_blueprint(health_bp, url_prefix="/api")
-    # Future blueprints will be registered here, e.g.:
-    # from routes.readings import readings_bp
-    # app.register_blueprint(readings_bp, url_prefix="/api")
+
+    from routes.sensor import sensor_bp
+    app.register_blueprint(sensor_bp, url_prefix="/api")
+
