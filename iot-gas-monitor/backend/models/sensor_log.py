@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import datetime
 from app import db
 
 
@@ -11,7 +11,7 @@ class SensorLog(db.Model):
     created_at = db.Column(
         db.DateTime,
         nullable=False,
-        default=lambda: datetime.now(timezone.utc),
+        default=datetime.now,
     )
 
     def __repr__(self):
